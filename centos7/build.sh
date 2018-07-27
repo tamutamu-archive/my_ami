@@ -55,7 +55,7 @@ my_ami_id=$(aws ec2 register-image \
     --block-device-mappings '[{"DeviceName":"/dev/sda1","Ebs": { "SnapshotId": "'${ami_snapshot_id}'", "VolumeSize":20,  "DeleteOnTermination": true, "VolumeType": "gp2"}}]' \
     --architecture x86_64 --sriov-net-support simple --ena-support | jq -r '.ImageId')
 
-aws ec2 image-available --image-ids ${my_ami_id}
+aws ec2 wait image-available --image-ids ${my_ami_id}
 
 
 #--group-id## clean up
